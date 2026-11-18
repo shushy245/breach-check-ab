@@ -1,5 +1,5 @@
 {
-  "name": "breach-scan-funnel",
+  "name": "breach-check-ab",
   "private": true,
   "version": "0.1.0",
   "packageManager": "pnpm@11.3.0",

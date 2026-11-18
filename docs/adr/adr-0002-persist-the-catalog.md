@@ -4,7 +4,7 @@ Date: 2026-09-18 · Status: accepted, amended by S2b (below) · Story: S2
 
 ## Context
 
-The funnel's result screen is the centrepiece of the exercise: a summary of the public breach
+The funnel's result screen is the centrepiece of the project: a summary of the public breach
 record, a sortable and filterable list under it, and a CTA whose copy is A/B tested. All of that
 reads from HIBP's `/api/v3/breaches` — 1,036 records, about 1 MB of JSON, refreshed by HIBP a
 handful of times a week.

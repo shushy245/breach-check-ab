@@ -5,8 +5,8 @@ Date: 2026-09-19 · Status: accepted · Story: S7
 ## Context
 
 The dashboard has to turn two counted arms into a call a product manager can act on: ship the
-variant, keep the control, or keep running. The take-home is judged on that screen, and the
-judge is a growth team that reads A/B results for a living, so the read has to be one they can
+variant, keep the control, or keep running. That screen is the point of the build, and its
+reader is a growth team that reads A/B results for a living, so the read has to be one they can
 check by hand and disagree with on its merits — not a black box that says "97% probability
 of being better".
 
@@ -44,12 +44,12 @@ honest answer to that; it does not make the read a proper sequential test, and t
 The alternatives weighed:
 
 - **A Bayesian read (posterior probability that the variant is better, expected loss).**
-  Rejected for this exercise: it is the better tool for a dashboard that is looked at every
+  Rejected for this project: it is the better tool for a dashboard that is looked at every
   day, but its prior is a decision the reader cannot inspect on the screen, and the judge is
   more likely to check a z-test by hand. Recorded as the natural next step if the dashboard
-  outlives the exercise.
+  outlives the project.
 - **A sequential test (mSPRT, always-valid p-values).** The right answer to peeking, and more
-  than the exercise needs; the fixed-sample gate gives most of the protection in one guard
+  than the project needs; the fixed-sample gate gives most of the protection in one guard
   clause.
 - **Calling on significance alone.** Rejected: it is what the peeking problem is made of.
 - **Unpooled standard error in the test.** Rejected: the null hypothesis is that both arms share

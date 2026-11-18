@@ -1,4 +1,4 @@
-// The result screen — the design's S-3 and the heart of the exercise. One layout, one component
+// The result screen — the design's S-3 and the heart of the project. One layout, one component
 // tree; the variant changes the words in the header and the tone class on the root, and nothing
 // else. The CTA is one node: a sticky bar at 390 that the stylesheet moves inline into the header
 // at 768+ (deviation 2), so no width is ever read in here.

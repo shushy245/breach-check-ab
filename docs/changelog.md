@@ -44,9 +44,9 @@ code. Commit-level detail lives in `git log`; the plan holds what is still ahead
   wrong, what next), and the six decision records had no index.
 - **Fix** — A README a reviewer can read in a few minutes: run it, the product calls, the
   experiment and how product retunes it, the simulated read and why the call is "keep
-  running", the stack, time spent. `docs/writeup.md` answers the brief's questions with only
+  running", the stack, time spent. `docs/writeup.md` answers the reader's questions with only
   what the review records back. `docs/adr/README.md` indexes the six decisions. Both reader
-  files were cut by half after a first draft ran long *(the reviewer has seen dozens of these)*.
+  files were cut by half after a first draft ran long *(a reader has seen dozens of these)*.
 - **Trade-off** — The write-up lists eight things the AI got wrong. Leaving them out would read
   better and be less true; the brief asks for them, and each one names how it was caught.
 - **Result** — D1 verified on a clean clone in a fresh directory: `cp .env.example .env`, set the
@@ -295,7 +295,7 @@ code. Commit-level detail lives in `git log`; the plan holds what is still ahead
 
 ## S1 — scaffold (closed 2026-09-17)
 
-- **Pain** — A take-home is judged first on whether it runs, and this scaffold only looked
+- **Pain** — A project is judged first on whether it runs, and this scaffold only looked
   finished: a clean clone could not start it (the compose file demanded a file that is deliberately
   never committed, and the database had no migration to apply), while the one test guarding request
   tracing turned out to assert nothing at all.

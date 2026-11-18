@@ -1,8 +1,8 @@
-# Breach Scan Funnel
+# Breach Check
 
 A mobile-first breach-scan funnel on public HIBP data, one A/B test on the result screen driven
 by a feature flag product can retune without a deploy, every funnel step stored per visitor, a
-traffic simulator, and an in-app read of the test. Guardio growth take-home.
+traffic simulator, and an in-app read of the test. A personal practice project.
 
 **Read first:** [`docs/writeup.md`](docs/writeup.md) — approach, where AI helped, what I'd do next.
 

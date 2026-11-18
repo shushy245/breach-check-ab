@@ -2,7 +2,7 @@
 
 Retired and fabricated breaches are HIBP's own disclaimers — a breach it withdrew, and one it
 believes was invented. Showing either on a screen whose whole job is to be believed would be a
-security company repeating a claim its source has retracted.
+security product repeating a claim its source has retracted.
 """
 
 from tests.builders.breach import a_breach

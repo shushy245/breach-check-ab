@@ -3,4 +3,4 @@ import type { ReactElement } from 'react';
 
 import styles from '~/components/Wordmark.module.scss';
 
-export const Wordmark = (): ReactElement => <span className={styles.wordmark}>{`Guardio`}</span>;
+export const Wordmark = (): ReactElement => <span className={styles.wordmark}>{`Breach Check`}</span>;

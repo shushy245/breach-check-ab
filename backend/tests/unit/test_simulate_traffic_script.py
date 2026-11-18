@@ -1,4 +1,4 @@
-"""The simulator script's argument parsing — the file the README tells a reviewer to run.
+"""The simulator script's argument parsing — the file the README tells a reader to run.
 
 Three lines of parsing with no test at all (BF86): a rate the funnel cannot produce, or a
 malformed `--activation`, would otherwise be found by a 4,000-visitor run rather than by the

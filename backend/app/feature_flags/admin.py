@@ -1,7 +1,7 @@
 """The gate on the feature-flag write: a shared secret in the `X-Admin-Token` header.
 
-Full auth is out of scope for a take-home; an open write on a security company's product is
-not acceptable either. The comparison is constant-time so the token cannot be recovered one
+Full auth is out of scope for this project; an open write on a security product is not
+acceptable either. The comparison is constant-time so the token cannot be recovered one
 byte at a time from response timings, and the log line never carries what was sent.
 """
 

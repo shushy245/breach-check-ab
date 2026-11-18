@@ -1,14 +1,14 @@
-# Breach Scan Funnel — Plan
+# Breach Check — Plan
 
 Authoritative plan. `/story-start <id>` reads the story's section; `/story-done <id>` checks it off.
-Source brief: Guardio "Fullstack Engineer (growth) - Home Exercise" (Notion; link in project memory).
+Source brief: self-set, written to practise a full-stack growth-experiment build end to end.
 
 ## Context
 
-Guardio's take-home: a mobile-first Breach Scan funnel (React + Python) on public HIBP data, one
+A personal practice project: a mobile-first Breach Scan funnel (React + Python) on public HIBP data, one
 A/B test on the result screen driven by a **feature flag** that product can retune without a
 redeploy, funnel events stored per visitor and tagged with variant, simulated traffic, an in-app
-dashboard that reads the test with real statistics, and a write-up. Judged in order: product
+dashboard that reads the test with real statistics, and a write-up. Priorities in order: product
 judgment, full-stack depth, working with AI, polish. Time budget: **one working day core** (E1),
 day-two extras as stretch (E2).
 
@@ -46,14 +46,14 @@ structured logging, functional core, TDD) carries over unchanged.
 | Python tooling | none / flake8+black / ruff+mypy | **ruff (lint + format) + mypy `--strict` + pytest**, wired into the same husky commit gate as the frontend. mypy strict is the `tsc --strict` analogue and the reason untyped Python cannot land. |
 | Backend shape | Domain Model / Transaction Script | **Transaction Script (Fowler, PoEAA)**, deliberately: simple domain, no invariants that earn a class. Each entity = `schemas.py` (Pydantic boundary), `models.py` (SQLAlchemy), `repository.py` (thin DB functions), `router.py` (thin shell), plus a pure `*.py` when there is logic. No service layer. |
 | External APIs | Call HIBP inline / ports & adapters | **Ports & Adapters.** `app/ports/` holds two `typing.Protocol` interfaces: `BreachCatalogPort.fetch_all()` and `PwnedPasswordRangePort.fetch_range(prefix)`. `app/adapters/hibp/` is the only place that knows HIBP URLs, headers or wire shape and translates into our model. `tests/fakes/` implements the same Protocols in memory. The composition root wires real adapters; tests swap fakes via FastAPI `dependency_overrides`. Replacing HIBP = one adapter file + one line in `main.py`. |
-| Admin protection | none / env token / full auth | **Env-configured admin token** (`X-Admin-Token`) required on flag PATCH → 401 otherwise. Full auth is out of scope; an open write endpoint is not acceptable for a security company's take-home. **Delivery:** `/admin` has no login screen — the operator pastes the token into a field on the page and it lives in React state for that session only. Never in the Vite build (`VITE_*` ships it to every visitor) and never in `localStorage`. Reads (`GET /api/feature-flags`) stay open; only the write is gated, so an unauthenticated page is a harmless one. |
+| Admin protection | none / env token / full auth | **Env-configured admin token** (`X-Admin-Token`) required on flag PATCH → 401 otherwise. Full auth is out of scope; an open write endpoint is not acceptable for a security product. **Delivery:** `/admin` has no login screen — the operator pastes the token into a field on the page and it lives in React state for that session only. Never in the Vite build (`VITE_*` ships it to every visitor) and never in `localStorage`. Reads (`GET /api/feature-flags`) stay open; only the write is gated, so an unauthenticated page is a harmless one. |
 | Cookies & CORS | defaults / explicit | Visitor cookie `HttpOnly; SameSite=Lax; Secure` outside dev. CORS allow-list = configured frontend origin only. |
 | DB / runtime | Postgres in docker-compose / SQLite | **Postgres 16 via docker-compose.** One `docker compose up` runs db + backend + frontend. |
 | Breach data | Proxy per request / in-memory cache / persist | **Persist to a `breach` table** with `fetched_at`, synced on startup and refreshed stale-while-revalidate from the request path once it is 24h old (S2b: single-flight per process, 5-minute retry interval, `syncedAt` on the summary). Enables server-side sort/filter/summary and keeps the funnel alive if HIBP is slow. If HIBP fails *and* the table is empty, the scan fails visibly (`503 { error }`), never fake data. |
 | Feature flag home | DB + admin page / GrowthBook container / DB only | **DB table + barely-designed `/admin` page.** Fowler taxonomy: an *Experiment* toggle, product-owned, medium lifetime. |
 | Variant assignment | Client hash / server hash / random + store | **Server-side, stored.** `POST /api/visitors` creates the visitor, hashes `visitor_id:flag_key` into [0,100) against the flag's live weights, persists the assignment. Stable across refreshes via cookie + DB row; changing weights only affects *new* visitors (documented). |
 | Password check | Client → HIBP directly / backend proxy | **Browser hashes with Web Crypto SHA-1, backend proxies the range call** with `Add-Padding`. Full hash never leaves the browser; proxy gives structured logging and a fail-visible seam. |
-| Password storage | Reuse SHA-1 / bcrypt / Argon2id | **Argon2id via `argon2-cffi`** (OWASP Password Storage Cheat Sheet's first recommendation; bcrypt is its fallback). Unsalted SHA-1 as a credential is wrong for a security company; the write-up says so. SHA-1 is used only for the k-anonymity check and never stored. |
+| Password storage | Reuse SHA-1 / bcrypt / Argon2id | **Argon2id via `argon2-cffi`** (OWASP Password Storage Cheat Sheet's first recommendation; bcrypt is its fallback). Unsalted SHA-1 as a credential is wrong for a security product; the write-up says so. SHA-1 is used only for the k-anonymity check and never stored. |
 | Analysis | Dashboard / notebook / both | **In-app dashboard**, parameterised by flag key so it points at the next test. |
 | Stats | z-test / chi-square / Bayesian | **Two-proportion z-test + 95% CI on absolute and relative lift + sample-size adequacy vs a stated MDE** (`scipy`). Bayesian is stretch. |
 | Charts | Hand SVG / Recharts / native elements | **Native `meter` and `progress` bars behind a `charts/` adapter** — decided during S7 and recorded here, not only in the S7 notes (DD-2). Recharts was the plan; D1 draws the funnel as a label and two percentage-width bars per step, which a chart library reproduces worse than markup does, and a dependency that renders one figure is one to justify. `FunnelBars` keeps a library-agnostic series contract, so a chart that genuinely needs a library is a new file in that folder rather than a rewrite. Load the `dataviz` skill before chart code. |
@@ -956,7 +956,7 @@ Objective: the funnel screens are designed in Claude Design by Shalev before any
 S5 implements a design rather than inventing one. **I stop here and hand over a prompt.**
 
 Tasks:
-- [x] (2026-09-18, `docs/design/d1-claude-design-prompt.md`) I write the Claude Design prompt: product context (Guardio, breach-scan funnel, mobile-web first at 390px **and responsive up to desktop**), the four screens in order, the result screen as the centrepiece with the calm and urgent variants side by side, the summary tiles, the sortable/filterable list with chips and sticky CTA, the sign-up form with the leaked-password warning state, the "you're protected" confirmation, and the constraints the implementation needs (tokens for colour/spacing/type, component inventory, both variants sharing one layout with only copy/tone changing, states: loading skeleton, empty-filter, error)
+- [x] (2026-09-18, `docs/design/d1-claude-design-prompt.md`) I write the Claude Design prompt: product context (Breach Check, breach-scan funnel, mobile-web first at 390px **and responsive up to desktop**), the four screens in order, the result screen as the centrepiece with the calm and urgent variants side by side, the summary tiles, the sortable/filterable list with chips and sticky CTA, the sign-up form with the leaked-password warning state, the "you're protected" confirmation, and the constraints the implementation needs (tokens for colour/spacing/type, component inventory, both variants sharing one layout with only copy/tone changing, states: loading skeleton, empty-filter, error)
 - [x] (2026-09-18, same file, section 3) The same prompt asks for every screen at all three widths, not only 390, and names what reflows at each (see "Responsive contract") — so the desktop layout is designed rather than improvised in S5
 - [x] (2026-09-19, `docs/design/claude-design-export/`) Shalev runs it in Claude Design and brings back the output: the project's 16 files verbatim — tokens, a 24-component inventory with states, every screen at 390/768/1280 (the result screen in both variants at each width), live HTML bodies, and ten decisions the designer took unprompted
 - [x] (2026-09-19, `f12c1bc`) I translate the output into `frontend/src/styles/tokens.scss` (oklch → sRGB hex, source value in a comment beside each) and `docs/design/component-inventory.md`, which S5–S7 name their components and drivers after; `/admin` and the landing route are re-tokened off the scale; **eight deviations are listed**, not silent (CSS-only reflow instead of the mock's JS width branch, one CTA node, 44px sort segments, the named largest breach, hex not oklch, admin's 720px width, 12px message radius, placeholder copy stays placeholder)
@@ -1088,7 +1088,7 @@ they *are* consumed — an entry still unused when S7 closes is dead code, and B
 it then. The two entries that were not scale — the tone mixins and `$focus-ring` — are findings 1
 and RF7, not part of this dismissal.
 
-### S5 — funnel-ui (~2.5h; the result screen is the heart of the exercise and gets the most care; implements D1's design)
+### S5 — funnel-ui (~2.5h; the result screen is the heart of the project and gets the most care; implements D1's design)
 
 Objective: Landing → Scan moment → Result (summary, sortable/filterable list, variant copy) → CTA,
 mobile-first at 390px and holding to desktop per the Responsive contract.
@@ -1557,7 +1557,7 @@ Cases:
 Commits:
 - [x] C1 `[chore]` README: run, product decisions, feature-flag how-to for product, hypothesis, simulated result and call, time spent (`c12aa28`)
 - [x] C2 `[chore]` write-up: approach, where AI helped, where it was wrong and how it was caught, what I'd do with more time (`f9bac1f`)
-- [x] C2b `[chore]` both cut to a quick read after Shalev's note — the interviewer has seen dozens (`ddac344`)
+- [x] C2b `[chore]` both cut to a quick read after Shalev's note — a reader has seen dozens (`ddac344`)
 - [x] C3 `[chore]` `docs/changelog.md`, final ADR index, clean-clone verification (`8b4f215`)
 - [x] C4 `[chore]` review fixes (`7d5450a`)
 

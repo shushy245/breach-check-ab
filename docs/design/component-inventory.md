@@ -160,5 +160,5 @@ Screens: `Landing` (S5), `Scan` (S5), `Result` (S5, `toneClassMap` selects the `
 - Self-host the font (above).
 - Row expansion joins S5 as case F21 rather than being dropped: the description field already
   exists on the model and the design gives it its only home on the screen.
-- The design export is committed verbatim so a reader of the take-home can open the design
+- The design export is committed verbatim so a reader of the repo can open the design
   without a claude.ai login.

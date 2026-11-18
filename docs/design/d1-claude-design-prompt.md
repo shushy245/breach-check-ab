@@ -18,8 +18,8 @@ not a one-off override.
 
 ## Paste from here
 
-You are designing the screens of **Breach Scan**, a mobile-web growth funnel for Guardio, a
-consumer browser-security product. Design the full system: tokens, components, and every screen at
+You are designing the screens of **Breach Scan**, a mobile-web growth funnel for Breach Check, a
+consumer security product. Design the full system: tokens, components, and every screen at
 three widths. I will implement it as a React app with CSS modules, so precision and consistency
 matter more than variety.
 
@@ -51,7 +51,7 @@ a frame, not a note.
 
 **S-1 Landing** (`/`)
 - Hero headline, one supporting sentence, a primary button **Scan known breaches**, three short
-  trust points (public data, no email needed, takes seconds), a small Guardio wordmark placement.
+  trust points (public data, no email needed, takes seconds), a small Breach Check wordmark placement.
 - States: default only. Above the fold at 390 the button must be visible without scrolling.
 
 **S-2 Scan moment** (`/scan`)

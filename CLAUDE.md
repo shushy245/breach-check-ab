@@ -1,4 +1,4 @@
-# Breach Scan Funnel — Project Instructions
+# Breach Check — Project Instructions
 
 ## HARD RULES — read before every response that involves code
 **Never begin implementing a story unless explicitly asked in this session.**
@@ -19,7 +19,7 @@ alone serves a STALE baked image, so the reviewer must rebuild with `--build` be
 - **First run on a clone:** `cp .env.example .env` first, then set `ADMIN_TOKEN` in it (`openssl rand -hex 24`) — compose has no default for it and refuses to start without one, naming the variable. Everything else non-secret still defaults. Then `docker compose up -d --build`. `pnpm test` needs the same `.env` (`test:backend` passes `--env-file ../.env`) plus the db on host port 5433 for the integration tests. Every published port binds to `127.0.0.1`, so the stack is reachable from this machine only — a phone on the LAN cannot reach it without deliberately rebinding.
 
 ## Project overview
-Guardio take-home: mobile-first Breach Scan funnel on public HIBP data, a DB-backed **feature
+Personal practice project: mobile-first Breach Scan funnel on public HIBP data, a DB-backed **feature
 flag** driving one A/B test on the result screen, stored funnel events, simulated traffic, and an
 in-app statistical dashboard.
 - `frontend/` — Vite + React 19 + TS strict; Vitest drivers; layout primitives in `src/ui/box.tsx`; axios seam `src/api/http-client.ts`.
@@ -77,11 +77,11 @@ Full history: `docs/changelog.md`; commit-level record: `git log`.
   `docs/reviews/audit-fixes-visual-review.md` (the pass over the result).
 
  **S8 — docs (closed 2026-09-19).** The repo could be run but not read: the README held a
-  run recipe and the admin note, nothing answered the brief's first question, and the ADRs
+  run recipe and the admin note, nothing answered the first question a reader asks, and the ADRs
   had no index. Now: a README a reviewer reads in minutes (run, product calls, experiment and
   flag how-to, the read and the call, stack, time spent), `docs/writeup.md` (approach, where
   AI helped, where it was wrong and how it was caught, more time), `docs/adr/README.md`. Both
-  reader files cut by half on Shalev's note that the interviewer has seen dozens of these —
+  reader files cut by half on Shalev's note that a reader has seen dozens of these —
   **keep them short**. D1 verified on a clean clone: two commands, catalogue pulled, simulator
   run, 208 + 225 green. Claims audit: 14 findings, 6 correctness in the prose, 0 in the
   numbers, all fixed; `.env.example` now ships `ADMIN_TOKEN=` empty (BF65). 5 commits, no code.

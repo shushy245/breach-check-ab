@@ -6,7 +6,7 @@ Date: 2026-09-19 · Status: accepted · Story: S6
 
 The mock sign-up takes a password and does two things with it: warns the visitor if it appears
 in a known leak, and stores an account. Both touch the same string, and both are the kind of
-place a security company's take-home is read most closely.
+place a security product is read most closely.
 
 The leak check is Have I Been Pwned's Pwned Passwords API, whose protocol is k-anonymity: the
 client hashes the password with SHA-1, sends the first five hex characters, and receives every
@@ -48,7 +48,7 @@ The alternatives weighed:
   — once to check, once to store — and the whole point of k-anonymity is that only five characters
   do. The backend receives the password exactly once, to hash it.
 - **bcrypt.** Weighed as OWASP's fallback; Argon2id is the first recommendation, memory-hard, and
-  `argon2-cffi` is the maintained binding. Nothing about the exercise favours the older choice.
+  `argon2-cffi` is the maintained binding. Nothing about the project favours the older choice.
 - **Reuse the SHA-1.** Rejected for the reasons above; the write-up says so in plain words.
 
 ## Consequences
@@ -70,5 +70,5 @@ sign-up, which is the point and is invisible at this scale.
 hash, and `POST /api/signups` needs no cookie and has no rate limit. Forty concurrent sign-ups —
 the default anyio thread pool — would hold ~2.5 GiB for tens of milliseconds and starve every
 other route of a worker for that long. A public deployment bounds this at the edge (a rate limit
-per address) or with a semaphore around the hash; this take-home records it rather than adding
+per address) or with a semaphore around the hash; this project records it rather than adding
 either, because nothing here is exposed beyond loopback.

@@ -4,7 +4,7 @@ Date: 2026-09-19 · Status: accepted · Story: S5
 
 ## Context
 
-The result screen is the page the whole exercise is judged on and the page the A/B test runs on.
+The result screen is the page the whole project turns on and the page the A/B test runs on.
 Its header — headline, subheadline, the button's label and the colour tone — comes from the
 variant the server assigned the visitor (ADR-0003), read through the visitor session the funnel
 loads on arrival. Two things can leave a visitor with no variant to read:

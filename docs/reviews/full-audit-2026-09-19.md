@@ -540,7 +540,7 @@ console error, not a crash.
 ### FE-12 — `frontend/src/pages/Dashboard.tsx` / `frontend/src/App.tsx:28` — `/dashboard` is public. **CONFIRMED by reading.**
 `/admin` at least gates the *write* behind a pasted token; `/dashboard` reads
 `GET /api/experiments/{flagKey}/results` with no credential and renders the hypothesis, the arm
-counts, the p-value and the ship/stop call. Within the take-home's loopback-only posture this is a
+counts, the p-value and the ship/stop call. Within the project's loopback-only posture this is a
 deliberate-looking gap, but it is not recorded as a decision in `docs/plan.md` or the inventory.
 **Fix:** either state it as a decision beside the `/admin` token note, or gate the read the same way.
 
@@ -1152,7 +1152,7 @@ add a Strict variant to every driver that owns an effect.
 
 # Independent review — conventions / named principles (A) and docs-vs-code drift (B)
 
-Repo: `/Users/shalevshushy/guardio/guardio_growth_home_assignment` · HEAD `ddac344` · read-only,
+Repo: `breach-check-ab` · HEAD `ddac344` · read-only,
 no file in the repo was written or staged.
 
 Checklist derived from, in this order: `~/.claude/intellectual-references.md`,

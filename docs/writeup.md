@@ -20,7 +20,7 @@ The product, the experiment and the numbers are in the README. This is about the
 
 I worked with Claude Code throughout, held to a written set of house rules.
 
-- **The plan** was drafted against the brief, then argued over and cut. Decisions worth
+- **The plan** was drafted against my own brief, then argued over and cut. Decisions worth
   relitigating became ADRs.
 - **The design** was done in Claude Design, then translated into one token file and a component
   inventory the build reads as its spec.

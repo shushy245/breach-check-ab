@@ -28,7 +28,7 @@ export const Landing = (): ReactElement => {
             <Column className={styles.hero}>
                 <h1 className={styles.headline}>{`Find out if you've been breached`}</h1>
                 <p className={styles.lead}>
-                    {`Guardio checks your accounts against the public record of known data breaches. No email address needed.`}
+                    {`Breach Check checks your accounts against the public record of known data breaches. No email address needed.`}
                 </p>
                 <button className={styles.scan} type="button" data-testid={LandingTestIds.Scan} onClick={handleScan}>
                     {`Scan known breaches`}
