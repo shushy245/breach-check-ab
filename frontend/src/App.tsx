@@ -27,14 +27,10 @@ export const App = (): ReactElement => (
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path={DASHBOARD_ROUTE} element={<Dashboard />} />
-        {/* Every URL that matched nothing above. Last, and outside the funnel layout: a
-            visitor who never reached a screen enrols in nothing and records nothing. */}
         <Route path="*" element={<NotFound />} />
     </Routes>
 );
 
-// The layout route every funnel page renders under; /admin and /dashboard sit outside it on
-// purpose (see FunnelProviders for why).
 const Funnel = (): ReactElement => (
     <FunnelProviders>
         <Outlet />

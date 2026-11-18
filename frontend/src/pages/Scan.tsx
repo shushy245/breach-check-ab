@@ -61,7 +61,6 @@ export const Scan = (): ReactElement => {
 const Scanning = (): ReactElement => (
     <Column className={styles.scanning} data-testid={ScanTestIds.Scanning}>
         <span className={styles.spinner} aria-hidden="true" />
-        {/* Announced once: the check is the only thing on the screen, and it is in progress. */}
         <p className={styles.lead} role="status">{`Checking the public record of known breaches…`}</p>
         <span className={styles.track} aria-hidden="true">
             <span className={styles.fill} />

@@ -99,7 +99,7 @@ const Flags = ({
     onSaved: (saved: { flagKey: string; lockToken: string }) => void;
     onRetry: () => void;
 }): ReactElement => {
-    if (isFailedToLoad(state)) {
+    if (isFailedToLoad(state))
         return (
             <Column className={styles.intro}>
                 <p className={styles.messageError} role="alert" data-testid={AdminTestIds.LoadError}>
@@ -110,11 +110,9 @@ const Flags = ({
                 </button>
             </Column>
         );
-    }
 
-    if (!isReady(state)) {
+    if (!isReady(state))
         return <p className={styles.message} role="status" data-testid={AdminTestIds.Loading}>{`Loading flags…`}</p>;
-    }
 
     return (
         <Column className={styles.flags}>
